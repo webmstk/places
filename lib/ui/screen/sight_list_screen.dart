@@ -18,15 +18,22 @@ class _SightListScreenState extends State<SightListScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
         child: AppBar(
-          flexibleSpace: const Padding(
-            padding: EdgeInsets.only(top: 60, left: 20, right: 20),
-            child: Text(
-              'Список\nинтересных мест',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w700,
-                fontSize: 32,
+          flexibleSpace: Padding(
+            padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+            child: RichText(
+              text: const TextSpan(
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32,
+                ),
+                children: [
+                  TextSpan(text: 'С', style: TextStyle(color: Colors.green)),
+                  TextSpan(text: 'писок\n'),
+                  TextSpan(text: 'и', style: TextStyle(color: Colors.yellow)),
+                  TextSpan(text: 'нтересных мест'),
+                ],
               ),
             ),
           ),
