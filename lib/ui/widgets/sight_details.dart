@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/app_strings.dart';
+import 'package:places/assets/theme/app_colors.dart';
+import 'package:places/assets/theme/app_typography.dart';
 import 'package:places/domain/sight.dart';
 
+/// Экран достопримечательности
 class SightDetails extends StatelessWidget {
+  /// Достопримечательность
   final Sight sight;
 
+  /// Конструктор экрана достопримечательности
   const SightDetails({super.key, required this.sight});
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: 14,
-      color: Color(0xFF3B3E5B),
-      fontWeight: FontWeight.w400,
-      decoration: TextDecoration.none,
-    );
-    final textStyleBold = textStyle.copyWith(fontWeight: FontWeight.w700);
-
     return Expanded(
       child: ColoredBox(
-        color: Colors.white,
+        color: AppColors.appBackground,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -45,41 +42,37 @@ class SightDetails extends StatelessWidget {
                 children: [
                   Text(
                     sight.name,
-                    style: textStyleBold.copyWith(
-                      fontSize: 24,
-                    ),
+                    style: AppTypography.header2,
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
-                        sight.type,
-                        style: textStyleBold,
+                        sight.type.string,
+                        style: AppTypography.boldText,
                       ),
                       const SizedBox(width: 20),
-                      const Text(
-                        'закрыто до 09:00',
-                        style: textStyle,
+                      Text(
+                        sight.visitingHours ?? '',
+                        style: AppTypography.baseText,
                       ),
                     ],
                   ),
                   const SizedBox(height: 25),
                   Text(
                     sight.details,
-                    style: textStyle,
+                    style: AppTypography.baseText,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Container(
-                      color: Colors.green,
+                      color: AppColors.buttonBackground,
                       width: double.infinity,
                       height: 50,
                       child: Center(
                         child: Text(
-                          'ПОСТРОИТЬ МАРШРУТ',
-                          style: textStyleBold.copyWith(
-                            color: Colors.white,
-                          ),
+                          AppStrings.getDirections,
+                          style: AppTypography.buttonText,
                         ),
                       ),
                     ),
@@ -98,10 +91,8 @@ class SightDetails extends StatelessWidget {
                             height: 20,
                           ),
                           Text(
-                            'Запланировать',
-                            style: textStyle.copyWith(
-                              color: const Color.fromRGBO(124, 126, 146, 0.56),
-                            ),
+                            AppStrings.toPlan,
+                            style: AppTypography.disabledText,
                           ),
                         ],
                       ),
@@ -114,8 +105,8 @@ class SightDetails extends StatelessWidget {
                             height: 20,
                           ),
                           const Text(
-                            'В избранное',
-                            style: textStyle,
+                            AppStrings.addToFavorites,
+                            style: AppTypography.baseText,
                           ),
                         ],
                       ),
