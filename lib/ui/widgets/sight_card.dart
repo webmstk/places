@@ -26,30 +26,48 @@ class SightCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              color: Colors.indigo,
-              height: 100,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          sight.type.string,
-                          style: AppTypography.foregroundText,
+            Stack(
+              children: [
+                SizedBox(
+                  height: 110,
+                  width: double.infinity,
+                  child: Image.network(
+                    sight.url,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
                         ),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          color: Colors.orange,
-                        ),
-                      ],
-                    ),
-                  ],
+                      );
+                    },
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 20,
+                  left: 20,
+                  child: Text(
+                    sight.type.string,
+                    style: AppTypography.foregroundText,
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  right: 20,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    color: Colors.orange,
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(20),
@@ -64,7 +82,7 @@ class SightCard extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    sight.details,
+                    sight.visitingHours ?? '',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: AppTypography.rowText,
