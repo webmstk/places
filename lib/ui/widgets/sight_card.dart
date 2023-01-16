@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/theme/app_colors.dart';
+import 'package:places/assets/theme/app_typography.dart';
 import 'package:places/domain/sight.dart';
 
+/// Строка (row) списка достопримечательностей
 class SightCard extends StatelessWidget {
+  /// Достопримечательность
   final Sight sight;
 
+  /// Конструктор строки (row) списка достопримечательностей
   const SightCard(this.sight, {super.key});
 
   @override
@@ -11,10 +16,9 @@ class SightCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       width: double.infinity,
-      // height: 200,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Color(0xFFF5F5F5),
+        color: AppColors.rowCardBackground,
       ),
       clipBehavior: Clip.hardEdge,
       child: Column(
@@ -31,12 +35,8 @@ class SightCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        sight.type,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        sight.type.string,
+                        style: AppTypography.foregroundText,
                       ),
                       Container(
                         width: 20,
@@ -56,10 +56,7 @@ class SightCard extends StatelessWidget {
               children: [
                 Text(
                   sight.name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTypography.rowHeader,
                 ),
                 const SizedBox(
                   height: 5,
@@ -68,11 +65,7 @@ class SightCard extends StatelessWidget {
                   sight.details,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF7C7E92),
-                  ),
+                  style: AppTypography.rowText,
                 ),
               ],
             ),
