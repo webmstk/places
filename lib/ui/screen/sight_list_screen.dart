@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/app_strings.dart';
+import 'package:places/assets/theme/app_colors.dart';
+import 'package:places/assets/theme/app_typography.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/widgets/sight_card.dart';
 
+/// Список достопримечательностей
 class SightListScreen extends StatefulWidget {
+  /// Конструктор списка достопримечательностей
   const SightListScreen({super.key});
 
   @override
@@ -12,49 +17,43 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
-  final _backgroundColor = Colors.white;
-
   @override
   Widget build(BuildContext context) {
-    final pyramids = mocks[0];
-    final deadSea = mocks[1];
-    final tibet = mocks[2];
-    final baikal = mocks[3];
+    final rows = mocks.map((mock) {
+      return SightCard(mock);
+    }).toList();
 
     return Scaffold(
-      backgroundColor: _backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(110),
-        child: AppBar(
-          flexibleSpace: const Padding(
-            padding: EdgeInsets.only(top: 60, left: 20, right: 20),
-            child: Text(
-              'Список\nинтересных мест',
-              style: TextStyle(
-                color: Color(0xFF3B3E5B),
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w700,
-                fontSize: 32,
-              ),
-            ),
-          ),
-          backgroundColor: _backgroundColor,
-          elevation: 0,
-        ),
-      ),
+      backgroundColor: AppColors.appBackground,
+      appBar: _AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              SightCard(pyramids),
-              SightCard(deadSea),
-              SightCard(tibet),
-              SightCard(baikal),
-            ],
+            children: rows,
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Size get preferredSize => const Size.fromHeight(110);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+        child: Text(
+          AppStrings.appTitle,
+          style: AppTypography.header1,
+        ),
+      ),
+      backgroundColor: AppColors.appBackground,
+      elevation: 0,
     );
   }
 }
