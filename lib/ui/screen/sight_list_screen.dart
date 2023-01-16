@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/app_strings.dart';
+import 'package:places/assets/theme/app_colors.dart';
+import 'package:places/assets/theme/app_typography.dart';
+import 'package:places/mocks.dart';
+import 'package:places/ui/widgets/sight_card.dart';
 
+/// Список достопримечательностей
 class SightListScreen extends StatefulWidget {
+  /// Конструктор списка достопримечательностей
   const SightListScreen({super.key});
 
   @override
@@ -10,38 +17,43 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
-  final _backgroundColor = Colors.white;
+  @override
+  Widget build(BuildContext context) {
+    final rows = mocks.map((mock) {
+      return SightCard(mock);
+    }).toList();
+
+    return Scaffold(
+      backgroundColor: AppColors.appBackground,
+      appBar: _AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: rows,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Size get preferredSize => const Size.fromHeight(110);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120),
-        child: AppBar(
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
-            child: RichText(
-              text: const TextSpan(
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32,
-                ),
-                children: [
-                  TextSpan(text: 'С', style: TextStyle(color: Colors.green)),
-                  TextSpan(text: 'писок\n'),
-                  TextSpan(text: 'и', style: TextStyle(color: Colors.yellow)),
-                  TextSpan(text: 'нтересных мест'),
-                ],
-              ),
-            ),
-          ),
-          backgroundColor: _backgroundColor,
-          elevation: 0,
+    return AppBar(
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+        child: Text(
+          AppStrings.appTitle,
+          style: AppTypography.header1,
         ),
       ),
-      backgroundColor: _backgroundColor,
+      backgroundColor: AppColors.appBackground,
+      elevation: 0,
     );
   }
 }
