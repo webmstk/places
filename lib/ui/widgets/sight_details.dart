@@ -20,20 +20,39 @@ class SightDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              color: Colors.indigo,
-              height: 300,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Container(
+            Stack(
+              children: [
+                SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: Image.network(
+                    sight.url,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  child: Container(
                     margin: const EdgeInsets.only(top: 50, left: 20),
                     width: 30,
                     height: 30,
                     color: Colors.red,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(20),
