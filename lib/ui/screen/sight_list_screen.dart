@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:places/assets/app_strings.dart';
 import 'package:places/assets/theme/app_colors.dart';
 import 'package:places/assets/theme/app_typography.dart';
@@ -20,7 +21,15 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     final rows = mocks.map((mock) {
-      return SightCard(mock);
+      return SightCard(
+        mock,
+        actions: [
+          SvgPicture.asset(
+            'res/icons/heart.svg',
+            color: AppColors.iconColor,
+          ),
+        ],
+      );
     }).toList();
 
     return Scaffold(
