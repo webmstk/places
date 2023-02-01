@@ -3,8 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:places/assets/app_strings.dart';
 import 'package:places/assets/theme/app_colors.dart';
 import 'package:places/assets/theme/app_typography.dart';
+import 'package:places/ui/widgets/colored_tab_bar.dart';
 import 'package:places/ui/widgets/favorite/plans.dart';
 import 'package:places/ui/widgets/favorite/visited.dart';
+
+const double _borderRadius = 25.0;
+const double _tabHeight = 40.0;
 
 /// Экран посещённых мест
 class VisitingScreen extends StatefulWidget {
@@ -20,9 +24,6 @@ class VisitingScreen extends StatefulWidget {
 class _VisitingScreenState extends State<VisitingScreen> {
   @override
   Widget build(BuildContext context) {
-    const borderRadius = 25.0;
-    const tabHeight = 40.0;
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -31,29 +32,29 @@ class _VisitingScreenState extends State<VisitingScreen> {
             AppStrings.favorites,
             style: AppTypography.appBarHeader,
           ),
-          bottom: _ColoredTabBar(
+          bottom: ColoredTabBar(
             color: AppColors.tabBarBackround,
             padding: 20,
-            radius: borderRadius,
+            radius: _borderRadius,
             tabBar: TabBar(
               indicator: const BoxDecoration(
                 color: AppColors.tabBarTabActiveBackround,
                 borderRadius: BorderRadius.all(
-                  Radius.circular(borderRadius),
+                  Radius.circular(_borderRadius),
                 ),
               ),
               labelStyle: AppTypography.boldText,
               labelColor: AppColors.tabBarTabActiveText,
               unselectedLabelColor: AppColors.tabBarTabInactiveText,
-              splashBorderRadius: BorderRadius.circular(borderRadius),
+              splashBorderRadius: BorderRadius.circular(_borderRadius),
               tabs: const [
                 Tab(
                   child: Text(AppStrings.favoritesTabBarFavorites),
-                  height: tabHeight,
+                  height: _tabHeight,
                 ),
                 Tab(
                   child: Text(AppStrings.favoritesTabBarVisited),
-                  height: tabHeight,
+                  height: _tabHeight,
                 ),
               ],
             ),
@@ -84,69 +85,38 @@ class _VisitingScreenState extends State<VisitingScreen> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'res/icons/list.svg',
-                color: AppColors.iconColor,
+                color: AppColors.iconNavBarColor,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'res/icons/map.svg',
-                color: AppColors.iconColor,
+                color: AppColors.iconNavBarColor,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'res/icons/heart.svg',
-                color: AppColors.iconColor,
+                color: AppColors.iconNavBarColor,
               ),
               activeIcon: SvgPicture.asset(
                 'res/icons/heart_full.svg',
-                color: AppColors.iconColor,
+                color: AppColors.iconNavBarColor,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'res/icons/settings.svg',
-                color: AppColors.iconColor,
+                color: AppColors.iconNavBarColor,
               ),
               label: '',
             ),
           ],
         ),
         backgroundColor: AppColors.appBackground,
-      ),
-    );
-  }
-}
-
-class _ColoredTabBar extends StatelessWidget implements PreferredSizeWidget {
-  final TabBar tabBar;
-  final Color color;
-  final double padding;
-  final double radius;
-
-  @override
-  Size get preferredSize => tabBar.preferredSize;
-
-  const _ColoredTabBar({
-    required this.tabBar,
-    required this.color,
-    this.padding = 0,
-    this.radius = 0,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.all(Radius.circular(radius)),
-        ),
-        child: tabBar,
       ),
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: member-ordering-extended
+
 /// Подписи-надписи
 class AppStrings {
   static const appTitle = 'Список\nинтересных мест';
@@ -12,6 +14,8 @@ class AppStrings {
       'Отмечайте понравившиеся\nместа и они появятся здесь.';
   static const emptyFavoriteVisited =
       'Завершите маршрут,\nчтобы место попало сюда.';
+  static String sightPlannedDate(String date) => 'Запланировано на $date';
+  static String sightVisitedDate(String date) => 'Цель достигнута $date';
 
   // enum SightType
   static const sightTypeDefault = 'достопримечательность';

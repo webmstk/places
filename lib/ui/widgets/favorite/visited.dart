@@ -5,6 +5,17 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/widgets/favorite/empty.dart';
 import 'package:places/ui/widgets/favorite/sight_visited.dart';
 
+final visitedSights = <FavoriteSightVisited>[
+  FavoriteSightVisited(
+    sight: mocks[2],
+    targetDate: '17 окт. 2023',
+  ),
+  FavoriteSightVisited(
+    sight: mocks[3],
+    targetDate: '19 окт. 2023',
+  ),
+];
+
 /// Список "Посетил"
 class FavoriteVisited extends StatelessWidget {
   /// Конструктор списка "Посетил"
@@ -12,17 +23,6 @@ class FavoriteVisited extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visitedSights = <FavoriteSightVisited>[
-      FavoriteSightVisited(
-        sight: mocks[2],
-        targetDate: '17 окт. 2023',
-      ),
-      FavoriteSightVisited(
-        sight: mocks[3],
-        targetDate: '19 окт. 2023',
-      ),
-    ];
-
     return visitedSights.isEmpty
         ? FavoriteEmpty(
             icon: SvgPicture.asset('res/icons/route.svg'),

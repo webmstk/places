@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:places/assets/app_strings.dart';
 import 'package:places/assets/theme/app_colors.dart';
 import 'package:places/assets/theme/app_typography.dart';
 import 'package:places/domain/sight.dart';
@@ -37,7 +38,7 @@ class FavoriteSightVisited extends StatelessWidget {
             ),
           ],
           content: Text(
-            'Цель достигнута $targetDate',
+            AppStrings.sightVisitedDate(targetDate),
             style: AppTypography.neutralText,
           ),
         ),
