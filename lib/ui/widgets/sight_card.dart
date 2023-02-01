@@ -53,6 +53,8 @@ class _InnerCard extends StatelessWidget {
 
   final Widget? content;
 
+  double get _borderRadius => 15.0;
+
   const _InnerCard(
     this.sight, {
     this.actions = const [],
@@ -61,94 +63,99 @@ class _InnerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: AppColors.rowCardBackground,
-      ),
-      clipBehavior: Clip.hardEdge,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                height: 110,
-                width: double.infinity,
-                child: Image.network(
-                  sight.url,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        sight.type.string,
-                        style: AppTypography.foregroundText,
-                      ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
+          color: AppColors.rowCardBackground,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  height: 110,
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(_borderRadius),
                     ),
-                    for (var action in actions)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: action,
+                    child: Image.network(
+                      sight.url,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          sight.type.string,
+                          style: AppTypography.foregroundText,
                         ),
                       ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  sight.name,
-                  style: AppTypography.rowHeader,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                if (content != null) ...[
-                  content!,
-                  const SizedBox(
-                    height: 10,
+                      for (var action in actions)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: SizedBox(
+                            width: 25,
+                            height: 25,
+                            child: action,
+                          ),
+                        ),
+                    ],
                   ),
-                ],
-                Text(
-                  sight.visitingHours ?? '',
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTypography.rowText,
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    sight.name,
+                    style: AppTypography.rowHeader,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  if (content != null) ...[
+                    content!,
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                  Text(
+                    sight.visitingHours ?? '',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTypography.rowText,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
